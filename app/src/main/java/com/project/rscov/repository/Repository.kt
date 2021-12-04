@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.rscov.model.Hospital
+import com.project.rscov.utils.showErrorDialog
 
 object Repository {
 
@@ -30,6 +31,7 @@ object Repository {
 
             override fun onCancelled(error: DatabaseError) {
                 Log.d("MainActivity", "onCancelled: ${error.message}")
+                showErrorDialog(context, error.message)
             }
 
         }
