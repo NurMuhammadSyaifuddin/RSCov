@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RSCov</string>
+    <string name="nama_rumah_sakit">NAMA RUMAH SAKIT</string>
+    <string name="address">Address</string>
+    <string name="region">Region</string>
+    <string name="Province">province</string>
+    <string name="Phone">phone</string>
+    <string name="RSCov">rscov</string>
 </resources>
