@@ -2,6 +2,8 @@ package com.project.rscov.repository
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -12,12 +14,14 @@ import com.project.rscov.utils.showErrorDialog
 
 object Repository {
 
-    fun getHospitals(context: Context?, hospitalsList: ((MutableList<Hospital>) -> Unit)?, rvAdapter: (() -> Unit)): ValueEventListener =
-        object : ValueEventListener{
+    private var result = MediatorLiveData<ValueEventListener>()
+
+    fun getHospitals(context: Context?, hospitalsList: ((MutableList<Hospital>) -> Unit)? = null, rvAdapter: (() -> Unit)? = null) : LiveData<ValueEventListener> {
+        object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.value != null){
+                if (snapshot.value != null) {
                     val json = Gson().toJson(snapshot.value)
-                    val type = object : TypeToken<List<Hospital>>(){}.type
+                    val type = object : TypeToken<List<Hospital>>() {}.type
                     val hospitals = Gson().fromJson<List<Hospital>>(json, type)
 
                     hospitals?.let {
@@ -25,7 +29,7 @@ object Repository {
                             hospitalsList(it as MutableList<Hospital>)
                         }
                     }
-                    rvAdapter()
+                    rvAdapter?.let { it() }
                 }
             }
 
@@ -34,6 +38,11 @@ object Repository {
                 showErrorDialog(context, error.message)
             }
 
+        }.also {
+            result.postValue(it)
         }
+
+        return result
+    }
 
 }
