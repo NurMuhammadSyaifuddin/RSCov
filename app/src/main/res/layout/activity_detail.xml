@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".DetailActivity">
+    tools:context=".ui.detail.DetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -174,7 +174,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_phone" />
-            /
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
