@@ -1,7 +1,8 @@
-package com.project.rscov
+package com.project.rscov.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.project.rscov.R
 
 class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
