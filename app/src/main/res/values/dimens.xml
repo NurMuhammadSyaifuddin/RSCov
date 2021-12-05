@@ -2,7 +2,6 @@
 <resources>
     <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_8">8dp</dimen>
-    <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="sp_18">18sp</dimen>
     <dimen name="dp_10">10dp</dimen>
@@ -10,12 +9,8 @@
     <dimen name="sp_22">22sp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_0">0dp</dimen>
-    <dimen name="dp_500">500dp</dimen>
-    <dimen name="dp_400">400dp</dimen>
     <dimen name="dp_50">50dp</dimen>
     <dimen name="dp_30">30dp</dimen>
-    <dimen name="dp_380">380dp</dimen>
-    <dimen name="dp_20_minus">-20dp</dimen>
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_36">36dp</dimen>
     <dimen name="dp_48">48dp</dimen>
