@@ -12,7 +12,7 @@ import com.project.rscov.databinding.LayoutDialogErrorBinding
 
 fun showErrorDialog(context: Context?, message: String){
     val binding = LayoutDialogErrorBinding.inflate(LayoutInflater.from(context))
-    binding.textViewError.text = message
+    binding.tvMessage.text = message
 
     AlertDialog
         .Builder(context)

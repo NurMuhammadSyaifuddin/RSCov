@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:layout_margin="10dp">
+    android:layout_margin="8dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/img_hospital"
@@ -23,29 +23,35 @@
         android:id="@+id/tv_hospital_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_48"
+        android:maxHeight="@dimen/dp_48"
         android:maxLines="2"
-        android:paddingTop="10dp"
         android:textColor="@color/black2"
         android:textSize="@dimen/sp_16"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_8"
+        android:ellipsize="end"
+        android:layout_marginHorizontal="@dimen/dp_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_hospital"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_hospital"
+        app:layout_constraintBottom_toTopOf="@id/tv_region"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Nama Rumah Sakit" />
 
     <TextView
         android:id="@+id/tv_region"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_20"
+        android:minHeight="@dimen/dp_36"
+        android:maxHeight="@dimen/dp_36"
         android:ellipsize="end"
-        android:maxLines="4"
+        android:maxLines="2"
         android:textSize="@dimen/sp_15"
-        app:layout_constraintEnd_toEndOf="@+id/tv_hospital_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_hospital_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_hospital_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_hospital_name"
+        app:layout_constraintEnd_toEndOf="@+id/tv_telepon"
+        app:layout_constraintStart_toStartOf="@+id/tv_telepon"
+        app:layout_constraintBottom_toTopOf="@+id/tv_telepon"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Region" />
 
     <TextView
@@ -53,12 +59,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="4"
+        android:maxLines="1"
         android:textSize="@dimen/sp_15"
-        android:layout_marginTop="@dimen/dp_10"
-        app:layout_constraintEnd_toEndOf="@+id/tv_region"
-        app:layout_constraintStart_toStartOf="@+id/tv_region"
-        app:layout_constraintTop_toBottomOf="@+id/tv_region"
+        android:layout_marginHorizontal="@dimen/dp_8"
+        app:layout_constraintTop_toBottomOf="@id/tv_region"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_hospital"
+        app:layout_constraintBottom_toBottomOf="@+id/img_hospital"
         tools:text="Telp" />
 
 
