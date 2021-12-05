@@ -7,7 +7,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
-import com.project.rscov.utils.showLoading
+import com.project.rscov.utils.gone
+import com.project.rscov.utils.visible
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,16 +34,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getHospitalsFromFirebase() {
-        binding.progressBar.showLoading(true)
-        viewModel.getHospitals(this,
-            {
-                adapter.hospitals = it
-            },
-            {
-                binding.rvRumahSakit.adapter = adapter
-            }).observe(this) {
+        binding.progressBar.visible()
+        viewModel.getHospitals(this
+        ) {
+            adapter.hospitals = it
+            binding.rvHospitals.adapter = adapter
+            binding.progressBar.gone()
+        }.observe(this) {
             hospitalsDatabase.addValueEventListener(it)
-            binding.progressBar.showLoading(false)
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.rscov.R
 import com.project.rscov.databinding.LayoutDialogErrorBinding
@@ -36,8 +37,4 @@ fun View.gone(){
 
 fun View.visible(){
     this.visibility = View.VISIBLE
-}
-
-fun ProgressBar.showLoading(state: Boolean){
-    if (state) visible() else gone()
 }

@@ -11,7 +11,13 @@
                 android:shape="ring"
                 android:thicknessRatio="15"
                 android:visible="true">
-                <solid android:color="@color/teal_200" />
+
+                <gradient
+                    android:startColor="@color/green"
+                    android:centerColor="@color/green"
+                    android:centerY="1.0"
+                    android:endColor="@color/green_dark"
+                    android:angle="270"/>
 
             </shape>
         </rotate>

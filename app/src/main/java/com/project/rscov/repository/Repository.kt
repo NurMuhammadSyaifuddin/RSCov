@@ -16,7 +16,7 @@ object Repository {
 
     private var result = MediatorLiveData<ValueEventListener>()
 
-    fun getHospitals(context: Context?, hospitalsList: ((MutableList<Hospital>) -> Unit), rvAdapter: (() -> Unit)) : LiveData<ValueEventListener> {
+    fun getHospitals(context: Context?, setUpAdapter: ((MutableList<Hospital>) -> Unit)) : LiveData<ValueEventListener> {
         object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value != null) {
@@ -25,9 +25,8 @@ object Repository {
                     val hospitals = Gson().fromJson<List<Hospital>>(json, type)
 
                     hospitals?.let {
-                        hospitalsList(it as MutableList<Hospital>)
+                        setUpAdapter(it as MutableList<Hospital>)
                     }
-                    rvAdapter()
                 }
             }
 
