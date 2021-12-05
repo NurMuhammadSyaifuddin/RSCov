@@ -7,7 +7,7 @@
     android:layout_margin="10dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/img_data"
+        android:id="@+id/img_hospital"
         android:layout_width="@dimen/dp_120"
         android:layout_height="@dimen/dp_120"
         android:elevation="@dimen/dp_3"
@@ -20,7 +20,7 @@
         app:riv_corner_radius="@dimen/dp_20" />
 
     <TextView
-        android:id="@+id/tv_item_nama"
+        android:id="@+id/tv_hospital_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="2"
@@ -31,34 +31,34 @@
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginStart="@dimen/dp_8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_data"
+        app:layout_constraintStart_toEndOf="@+id/img_hospital"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Nama Rumah Sakit" />
 
     <TextView
-        android:id="@+id/tv_item_region"
+        android:id="@+id/tv_region"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:ellipsize="end"
         android:maxLines="4"
         android:textSize="@dimen/sp_15"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_nama"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_nama"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_nama"
+        app:layout_constraintEnd_toEndOf="@+id/tv_hospital_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_hospital_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hospital_name"
         tools:text="Region" />
 
     <TextView
-        android:id="@+id/tv_item_telp"
+        android:id="@+id/tv_telepon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="4"
         android:textSize="@dimen/sp_15"
         android:layout_marginTop="@dimen/dp_10"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_region"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_region"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_region"
+        app:layout_constraintEnd_toEndOf="@+id/tv_region"
+        app:layout_constraintStart_toStartOf="@+id/tv_region"
+        app:layout_constraintTop_toBottomOf="@+id/tv_region"
         tools:text="Telp" />
 
 
