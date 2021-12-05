@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img_data"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
+        android:elevation="@dimen/dp_3"
+        android:scaleType="fitXY"
+        android:src="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/dp_16"
+        app:riv_corner_radius="@dimen/dp_20" />
+
+    <TextView
+        android:id="@+id/tv_item_nama"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:paddingTop="10dp"
+        android:textColor="@color/black2"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_data"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nama Rumah Sakit" />
+
+    <TextView
+        android:id="@+id/tv_item_region"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_nama"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_nama"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_nama"
+        tools:text="Region" />
+
+    <TextView
+        android:id="@+id/tv_item_telp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textSize="@dimen/sp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_region"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_region"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_region"
+        tools:text="Telp" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        app:cardBackgroundColor="@color/grey"
+        app:cardCornerRadius="@dimen/dp_20"
+        app:cardElevation="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:foreground="?android:attr/selectableItemBackground"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
