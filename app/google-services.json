@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "140995619888",
+    "project_id": "rscov-198d4",
+    "storage_bucket": "rscov-198d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140995619888:android:671a6c6a9f36b79acc11f5",
+        "android_client_info": {
+          "package_name": "com.project.rscov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140995619888-5obcur405hl5ulmsg766h4l65q8pgaim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkzVvfl2PtA7vIjdXnzuQL-Tf6W4Knoog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140995619888-5obcur405hl5ulmsg766h4l65q8pgaim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
