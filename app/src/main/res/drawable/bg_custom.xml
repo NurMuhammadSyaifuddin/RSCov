@@ -7,6 +7,6 @@
         android:bottomRightRadius="@dimen/dp_20"/>
 
     <stroke android:color="@color/grey"
-        android:width="@dimen/dp_8"
+        android:width="@dimen/dp_8"/>
 
 </shape>

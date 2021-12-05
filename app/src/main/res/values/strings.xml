@@ -5,5 +5,5 @@
     <string name="region">Region</string>
     <string name="Province">province</string>
     <string name="Phone">phone</string>
-    <string name="RSCov">rscov</string>
+    <string name="rscov">RSCov</string>
 </resources>
