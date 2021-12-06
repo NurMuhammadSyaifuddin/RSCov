@@ -9,7 +9,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
+import com.project.rscov.model.Hospital
 import com.project.rscov.utils.gone
+import com.project.rscov.utils.hideSoftKeyboard
 import com.project.rscov.utils.visible
 
 class MainActivity : AppCompatActivity() {
@@ -39,31 +41,60 @@ class MainActivity : AppCompatActivity() {
 
     private fun onAction() {
         binding.apply {
-            edtSearchMain.addTextChangedListener {
-                adapter.filter.filter(it.toString().trim().lowercase())
-            }
-            edtSearchMain.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    val dataSearch = edtSearchMain.text.toString().trim().lowercase()
-                    adapter.filter.filter(dataSearch)
 
+            edtSearchMain.addTextChangedListener {
+                val value = it.toString().trim()
+                adapter.filter.filter(value)
+            }
+
+            edtSearchMain.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val value = edtSearchMain.text.toString().trim()
+                    adapter.filter.filter(value)
+                    hideSoftKeyboard(this@MainActivity, binding.root)
                     return@setOnEditorActionListener true
                 }
+                hideSoftKeyboard(this@MainActivity, binding.root)
                 return@setOnEditorActionListener false
             }
         }
     }
 
     private fun getHospitalsFromFirebase() {
-        binding.progressBar.visible()
-        viewModel.getHospitals(
-            this
-        ) {
-            adapter.hospitals = it
-            binding.rvHospitals.adapter = adapter
-            binding.progressBar.gone()
-        }.observe(this) {
-            hospitalsDatabase.addValueEventListener(it)
+        binding.apply {
+            progressBar.visible()
+
+            viewModel.getHospitals(
+                this@MainActivity
+            ) {
+                val value = edtSearchMain.text.toString().trim()
+
+                if (value.isNotBlank()) {
+                    val filteredList = mutableListOf<Hospital>()
+
+                    for (hospital in it) {
+                        val title = hospital.name.trim().lowercase()
+                        val region = hospital.region.trim().lowercase()
+                        val province = hospital.province.trim().lowercase()
+
+                        if (title.contains(value) || region.contains(value) || province.contains(
+                                value
+                            )
+                        ) {
+                            filteredList.add(hospital)
+                        }
+                    }
+                    adapter.hospitals = filteredList
+                } else {
+                    adapter.hospitals = it
+                }
+
+                rvHospitals.adapter = adapter
+                progressBar.gone()
+
+            }.observe(this@MainActivity) {
+                hospitalsDatabase.addValueEventListener(it)
+            }
         }
     }
 }

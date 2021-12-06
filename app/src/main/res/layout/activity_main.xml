@@ -25,11 +25,10 @@
             android:layout_height="@dimen/edit_text_search_height"
             android:autofillHints="@string/search"
             android:background="@drawable/bg_edit_text_search"
-            android:elevation="@dimen/dp_8"
             android:hint="@string/search"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:paddingHorizontal="@dimen/dp_8"
+            android:paddingHorizontal="@dimen/dp_16"
             android:textColor="@color/grey_dark"
             android:textColorHint="@color/grey_dark" />
 

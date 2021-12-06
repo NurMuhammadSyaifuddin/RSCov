@@ -14,19 +14,24 @@ import com.project.rscov.utils.showErrorDialog
 
 object Repository {
 
-    private var result = MediatorLiveData<ValueEventListener>()
+    fun getHospitals(
+        context: Context?,
+        setUpAdapter: ((MutableList<Hospital>) -> Unit)
+    ): LiveData<ValueEventListener> {
 
-    fun getHospitals(context: Context?, setUpAdapter: ((MutableList<Hospital>) -> Unit)) : LiveData<ValueEventListener> {
+        val result = MediatorLiveData<ValueEventListener>()
+
         object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value != null) {
                     val json = Gson().toJson(snapshot.value)
                     val type = object : TypeToken<List<Hospital>>() {}.type
-                    val hospitals = Gson().fromJson<List<Hospital>>(json, type)
+                    val hospitals = Gson().fromJson<MutableList<Hospital>>(json, type)
 
                     hospitals?.let {
-                        setUpAdapter(it as MutableList<Hospital>)
+                        setUpAdapter(it)
                     }
+
                 }
             }
 
@@ -41,5 +46,6 @@ object Repository {
 
         return result
     }
+
 
 }
