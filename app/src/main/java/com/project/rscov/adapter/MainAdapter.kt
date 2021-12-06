@@ -53,7 +53,8 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>(), Filterable {
         override fun publishResults(p0: CharSequence?, results: FilterResults?) {
             val callback = DivHospitalsCallback(hospitalsFilter, results?.values as List<Hospital>)
             val result = DiffUtil.calculateDiff(callback)
-            hospitalsFilter = results.values as MutableList<Hospital>
+            hospitalsFilter.clear()
+            hospitalsFilter.addAll(results.values as MutableList<Hospital>)
             result.dispatchUpdatesTo(this@MainAdapter)
         }
 
@@ -83,10 +84,10 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>(), Filterable {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(hospitals[position])
+        holder.bind(hospitalsFilter[position])
     }
 
-    override fun getItemCount(): Int = hospitals.size
+    override fun getItemCount(): Int = hospitalsFilter.size
 
     fun onClick(listener: ((Hospital) -> Unit)?){
         this.listener = listener

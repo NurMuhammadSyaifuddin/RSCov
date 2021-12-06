@@ -9,4 +9,5 @@
     <string name="location">%s, %s</string>
     <string name="error">Error</string>
     <string name="default_text">-</string>
+    <string name="search">Search</string>
 </resources>
