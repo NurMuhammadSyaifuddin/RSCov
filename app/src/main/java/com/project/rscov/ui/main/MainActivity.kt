@@ -1,5 +1,6 @@
 package com.project.rscov.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -10,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
 import com.project.rscov.model.Hospital
+import com.project.rscov.ui.detail.DetailActivity
 import com.project.rscov.utils.gone
 import com.project.rscov.utils.hideSoftKeyboard
 import com.project.rscov.utils.visible
@@ -56,6 +58,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 hideSoftKeyboard(this@MainActivity, binding.root)
                 return@setOnEditorActionListener false
+            }
+
+            adapter.onClick {
+                Intent(this@MainActivity, DetailActivity::class.java).also { intent ->
+                    intent.putExtra(DetailActivity.EXTRA_DATA, it)
+                    startActivity(intent)
+                }
             }
         }
     }
