@@ -16,6 +16,7 @@ object Repository {
 
     fun getHospitals(
         context: Context?,
+        value: String,
         setUpAdapter: ((MutableList<Hospital>) -> Unit)
     ): LiveData<ValueEventListener> {
 
@@ -24,12 +25,30 @@ object Repository {
         object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value != null) {
+
+                    val filteredList = mutableListOf<Hospital>()
+
                     val json = Gson().toJson(snapshot.value)
                     val type = object : TypeToken<List<Hospital>>() {}.type
                     val hospitals = Gson().fromJson<MutableList<Hospital>>(json, type)
 
+
+                    if (value.isBlank()){
+                        filteredList.addAll(hospitals)
+                    }else{
+                        for (hospital in hospitals){
+                            val title = hospital.name?.trim()?.lowercase()
+                            val region = hospital.region?.trim()?.lowercase()
+                            val province = hospital.province?.trim()?.lowercase()
+
+                            if (title?.contains(value) as Boolean || region?.contains(value) as Boolean  || province?.contains(value) as Boolean ){
+                                filteredList.add(hospital)
+                            }
+                        }
+                    }
+
                     hospitals?.let {
-                        setUpAdapter(it)
+                        setUpAdapter(filteredList)
                     }
 
                 }

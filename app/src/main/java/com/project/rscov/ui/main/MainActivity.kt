@@ -14,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.project.rscov.R
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
-import com.project.rscov.model.Hospital
 import com.project.rscov.ui.detail.DetailActivity
 import com.project.rscov.utils.*
 
@@ -48,8 +47,7 @@ class MainActivity : AppCompatActivity() {
 
             edtSearchMain.addTextChangedListener {
                 val value = it.toString().trim()
-
-                adapter.filter.filter(value)
+                getHospitalsFromFirebase()
                 showTvNoData(value)
 
             }
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             edtSearchMain.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     val value = edtSearchMain.text.toString().trim()
-                    adapter.filter.filter(value)
+                    getHospitalsFromFirebase()
                     showTvNoData(value)
                     hideSoftKeyboard(this@MainActivity, binding.root)
                     return@setOnEditorActionListener true
@@ -81,22 +79,15 @@ class MainActivity : AppCompatActivity() {
 
             showLoadFailed(false)
 
+            val value = edtSearchMain.text.toString().trim()
+
             if (isNetworkAvailable(this@MainActivity)) {
 
                 viewModel.getHospitals(
-                    this@MainActivity
+                    this@MainActivity,
+                    value
                 ) {
-                    val value = edtSearchMain.text.toString().trim()
-
-
                     adapter.hospitals = it
-
-                    if (value.isNotBlank()) {
-                        adapter.filter.filter(value)
-                    }
-
-                    showTvNoData(value)
-
                     rvHospitals.adapter = adapter
                     progressBar.gone()
 
@@ -144,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             Handler(Looper.getMainLooper())
                 .postDelayed({
-                    if (adapter.hospitalsFilter.size == 0) {
+                    if (adapter.hospitals.size == 0) {
                         tvNoData.visible()
                         tvNoData.text = getString(R.string.no_data, value)
                     } else {
