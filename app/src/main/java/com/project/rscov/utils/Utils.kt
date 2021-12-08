@@ -2,6 +2,9 @@ package com.project.rscov.utils
 
 import android.app.AlertDialog
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -23,6 +26,25 @@ fun showErrorDialog(context: Context?, message: String){
         .show()
 }
 
+fun isNetworkAvailable(context: Context): Boolean{
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork) ?: return false
+        return when{
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            else -> false
+        }
+    }else{
+        if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnectedOrConnecting){
+            return true
+        }
+    }
+    return false
+}
+
 fun hideSoftKeyboard(context: Context, view: View) {
     val imm = context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -42,4 +64,12 @@ fun View.gone(){
 
 fun View.visible(){
     this.visibility = View.VISIBLE
+}
+
+fun View.enabled(){
+    isEnabled = true
+}
+
+fun View.disabled(){
+    isEnabled = false
 }

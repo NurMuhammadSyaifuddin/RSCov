@@ -27,4 +27,9 @@
     <dimen name="dp_200">200dp</dimen>
     <dimen name="dp_12">12dp</dimen>
     <dimen name="edit_text_search_height">48dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_28">28dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_6">6dp</dimen>
 </resources>

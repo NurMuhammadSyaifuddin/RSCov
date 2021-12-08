@@ -15,7 +15,7 @@ import com.project.rscov.utils.loadImage
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>(), Filterable {
 
     private var listener: ((Hospital) -> Unit)? = null
-    private var hospitalsFilter = mutableListOf<Hospital>()
+    var hospitalsFilter = mutableListOf<Hospital>()
 
     var hospitals = mutableListOf<Hospital>()
     set(value) {

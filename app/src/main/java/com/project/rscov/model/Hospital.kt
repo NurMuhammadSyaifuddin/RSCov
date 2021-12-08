@@ -6,11 +6,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Hospital(
-    val name: String,
-    val region: String,
-    val province: String,
-    val address: String,
-    val phone: String,
+    var name: String? = null,
+    var region: String? = null,
+    var province: String? = null,
+    var address: String? = null,
+    var phone: String? = null,
     @SerializedName("image_url")
-    val imageUrl: String
+    var imageUrl: String? = null
 ) : Parcelable

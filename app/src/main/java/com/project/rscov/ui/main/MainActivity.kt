@@ -3,18 +3,20 @@ package com.project.rscov.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.project.rscov.R
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
 import com.project.rscov.model.Hospital
 import com.project.rscov.ui.detail.DetailActivity
-import com.project.rscov.utils.gone
-import com.project.rscov.utils.hideSoftKeyboard
-import com.project.rscov.utils.visible
+import com.project.rscov.utils.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,17 +48,20 @@ class MainActivity : AppCompatActivity() {
 
             edtSearchMain.addTextChangedListener {
                 val value = it.toString().trim()
+
                 adapter.filter.filter(value)
+                showTvNoData(value)
+
             }
 
             edtSearchMain.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     val value = edtSearchMain.text.toString().trim()
                     adapter.filter.filter(value)
+                    showTvNoData(value)
                     hideSoftKeyboard(this@MainActivity, binding.root)
                     return@setOnEditorActionListener true
                 }
-                hideSoftKeyboard(this@MainActivity, binding.root)
                 return@setOnEditorActionListener false
             }
 
@@ -66,44 +71,91 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+
+            btnReload.setOnClickListener { getHospitalsFromFirebase() }
         }
     }
 
     private fun getHospitalsFromFirebase() {
         binding.apply {
-            progressBar.visible()
 
-            viewModel.getHospitals(
-                this@MainActivity
-            ) {
-                val value = edtSearchMain.text.toString().trim()
+            showLoadFailed(false)
 
-                if (value.isNotBlank()) {
-                    val filteredList = mutableListOf<Hospital>()
+            if (isNetworkAvailable(this@MainActivity)) {
 
-                    for (hospital in it) {
-                        val title = hospital.name.trim().lowercase()
-                        val region = hospital.region.trim().lowercase()
-                        val province = hospital.province.trim().lowercase()
+                viewModel.getHospitals(
+                    this@MainActivity
+                ) {
+                    val value = edtSearchMain.text.toString().trim()
 
-                        if (title.contains(value) || region.contains(value) || province.contains(
-                                value
-                            )
-                        ) {
-                            filteredList.add(hospital)
-                        }
-                    }
-                    adapter.hospitals = filteredList
-                } else {
+
                     adapter.hospitals = it
+
+                    if (value.isNotBlank()) {
+                        adapter.filter.filter(value)
+                    }
+
+                    showTvNoData(value)
+
+                    rvHospitals.adapter = adapter
+                    progressBar.gone()
+
+                }.observe(this@MainActivity) {
+                    hospitalsDatabase.addValueEventListener(it)
                 }
 
-                rvHospitals.adapter = adapter
-                progressBar.gone()
+                Handler(Looper.getMainLooper())
+                    .postDelayed({
 
-            }.observe(this@MainActivity) {
-                hospitalsDatabase.addValueEventListener(it)
+                        if (progressBar.isVisible) {
+                            showLoadFailed(true)
+                        }
+
+                    }, DELAY_CONNETING)
+
+            } else {
+                showLoadFailed(true)
+            }
+
+        }
+    }
+
+    private fun showLoadFailed(state: Boolean) {
+        binding.apply {
+            if (state) {
+                progressBar.gone()
+                rvHospitals.gone()
+                imgFailed.visible()
+                tvFailed.visible()
+                btnReload.visible()
+                edtSearchMain.disabled()
+            } else {
+                progressBar.visible()
+                rvHospitals.visible()
+                imgFailed.gone()
+                tvFailed.gone()
+                btnReload.gone()
+                edtSearchMain.enabled()
             }
         }
+    }
+
+    private fun showTvNoData(value: String) {
+        binding.apply {
+            Handler(Looper.getMainLooper())
+                .postDelayed({
+                    if (adapter.hospitalsFilter.size == 0) {
+                        tvNoData.visible()
+                        tvNoData.text = getString(R.string.no_data, value)
+                    } else {
+                        tvNoData.gone()
+                    }
+                }, 100)
+
+        }
+    }
+
+    companion object {
+        private const val DELAY_CONNETING = 15000L
     }
 }
