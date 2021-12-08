@@ -2,15 +2,18 @@ package com.project.rscov.utils
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.project.rscov.R
 import com.project.rscov.databinding.LayoutDialogErrorBinding
 
@@ -58,18 +61,24 @@ fun ImageView.loadImage(url: String){
         .into(this)
 }
 
+fun popUpImage(context: Context, url: String){
+    ImagePopup(context).apply {
+        windowWidth = WindowManager.LayoutParams.MATCH_PARENT
+        windowHeight = WindowManager.LayoutParams.WRAP_CONTENT
+        minimumHeight = 200
+        maxHeight = 600
+        backgroundColor = Color.WHITE
+        isHideCloseIcon = true
+        postInvalidateOnAnimation()
+        initiatePopupWithGlide(url)
+        viewPopup()
+    }
+}
+
 fun View.gone(){
     this.visibility = View.GONE
 }
 
 fun View.visible(){
     this.visibility = View.VISIBLE
-}
-
-fun View.enabled(){
-    isEnabled = true
-}
-
-fun View.disabled(){
-    isEnabled = false
 }

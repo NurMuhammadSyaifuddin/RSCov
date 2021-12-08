@@ -9,8 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.project.rscov.R
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
@@ -42,21 +41,19 @@ class MainActivity : AppCompatActivity() {
         onAction()
     }
 
+
     private fun onAction() {
         binding.apply {
 
             edtSearchMain.addTextChangedListener {
-                val value = it.toString().trim()
-                getHospitalsFromFirebase()
-                showTvNoData(value)
-
+                adapter.filter.filter(it.toString().trim())
+                showTvNoData(it.toString())
             }
 
             edtSearchMain.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val value = edtSearchMain.text.toString().trim()
-                    getHospitalsFromFirebase()
-                    showTvNoData(value)
+                    adapter.filter.filter(edtSearchMain.text)
+                    showTvNoData(edtSearchMain.text.toString().trim())
                     hideSoftKeyboard(this@MainActivity, binding.root)
                     return@setOnEditorActionListener true
                 }
@@ -70,6 +67,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            adapter.onClickToPopUpImage { popUpImage(this@MainActivity, it) }
+
             btnReload.setOnClickListener { getHospitalsFromFirebase() }
         }
     }
@@ -77,36 +76,35 @@ class MainActivity : AppCompatActivity() {
     private fun getHospitalsFromFirebase() {
         binding.apply {
 
-            showLoadFailed(false)
+            progressBar.visible()
 
-            val value = edtSearchMain.text.toString().trim()
+            viewModel.getHospitals(
+                this@MainActivity,
+            ) {
+                val value = edtSearchMain.text.toString().trim()
 
-            if (isNetworkAvailable(this@MainActivity)) {
+                adapter.hospitals = it
+                rvHospitals.adapter = adapter
 
-                viewModel.getHospitals(
-                    this@MainActivity,
-                    value
-                ) {
-                    adapter.hospitals = it
-                    rvHospitals.adapter = adapter
-                    progressBar.gone()
-
-                }.observe(this@MainActivity) {
-                    hospitalsDatabase.addValueEventListener(it)
+                if (value.isNotBlank()) {
+                    adapter.filter.filter(value)
                 }
 
-                Handler(Looper.getMainLooper())
-                    .postDelayed({
+                progressBar.gone()
 
-                        if (progressBar.isVisible) {
-                            showLoadFailed(true)
-                        }
-
-                    }, DELAY_CONNETING)
-
-            } else {
-                showLoadFailed(true)
+            }.observe(this@MainActivity) {
+                hospitalsDatabase.addValueEventListener(it)
+                showLoadFailed(false)
             }
+
+            Handler(Looper.getMainLooper())
+                .postDelayed({
+
+                    if (progressBar.isVisible) {
+                        showLoadFailed(true)
+                    }
+
+                }, DELAY_CONNETING)
 
         }
     }
@@ -114,19 +112,15 @@ class MainActivity : AppCompatActivity() {
     private fun showLoadFailed(state: Boolean) {
         binding.apply {
             if (state) {
-                progressBar.gone()
                 rvHospitals.gone()
                 imgFailed.visible()
                 tvFailed.visible()
                 btnReload.visible()
-                edtSearchMain.disabled()
             } else {
-                progressBar.visible()
                 rvHospitals.visible()
                 imgFailed.gone()
                 tvFailed.gone()
                 btnReload.gone()
-                edtSearchMain.enabled()
             }
         }
     }
@@ -135,18 +129,18 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             Handler(Looper.getMainLooper())
                 .postDelayed({
-                    if (adapter.hospitals.size == 0) {
+                    if (adapter.hospitalsFilter.size == 0 && value.isNotBlank()) {
                         tvNoData.visible()
                         tvNoData.text = getString(R.string.no_data, value)
                     } else {
                         tvNoData.gone()
                     }
-                }, 100)
+                }, 400)
 
         }
     }
 
     companion object {
-        private const val DELAY_CONNETING = 15000L
+        private const val DELAY_CONNETING = 10000L
     }
 }

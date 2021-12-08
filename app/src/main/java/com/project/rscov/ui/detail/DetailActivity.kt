@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.project.rscov.databinding.ActivityDetailBinding
 import com.project.rscov.model.Hospital
 import com.project.rscov.utils.loadImage
+import com.project.rscov.utils.popUpImage
 
 class DetailActivity : AppCompatActivity() {
 
@@ -29,6 +30,12 @@ class DetailActivity : AppCompatActivity() {
                 tvRegion.text = hospital?.region
                 tvProvince.text = hospital?.province
                 tvPhone.text = hospital?.phone
+
+                imgPictureHeader.setOnClickListener {
+                    hospital?.imageUrl?.let { url ->
+                        popUpImage(this@DetailActivity, url)
+                    }
+                }
             }
         }
     }

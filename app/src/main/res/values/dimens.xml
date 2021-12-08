@@ -32,4 +32,6 @@
     <dimen name="dp_28">28dp</dimen>
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_400">400dp</dimen>
+    <dimen name="dp_360">360dp</dimen>
 </resources>
