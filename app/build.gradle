@@ -64,4 +64,7 @@ dependencies {
 
     // Image PopUp
     implementation'com.github.chathuralakmal:AndroidImagePopup:1.2.2'
+
+    // Avi Loading
+    implementation 'com.wang.avi:library:2.1.3'
 }

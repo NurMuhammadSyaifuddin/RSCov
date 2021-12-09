@@ -45,16 +45,6 @@
         app:layout_constraintTop_toBottomOf="@id/text_input_search"
         tools:listitem="@layout/item_hospital" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_search" />
 
     <ImageView
         android:id="@+id/img_failed"
@@ -119,5 +109,20 @@
         app:layout_constraintTop_toBottomOf="@id/text_input_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        style="@style/AVLoadingIndicatorView"
+        app:indicatorName="BallPulseSyncIndicator"
+        android:visibility="gone"
+        app:indicatorColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_search" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.project.rscov.utils
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -75,12 +74,6 @@ fun popUpImage(context: Context, url: String) {
     }
 }
 
-
-fun getScreeOrientation(context: Context): Boolean =
-    when(context.resources.configuration.orientation){
-        Configuration.ORIENTATION_PORTRAIT -> true
-        else -> false
-    }
 
 fun View.gone(){
     this.visibility = View.GONE
