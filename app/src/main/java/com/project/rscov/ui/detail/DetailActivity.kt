@@ -1,7 +1,11 @@
 package com.project.rscov.ui.detail
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.project.rscov.databinding.ActivityDetailBinding
 import com.project.rscov.model.Hospital
 import com.project.rscov.utils.loadImage
@@ -17,6 +21,19 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getDataIntent()
+
+        onAction()
+    }
+
+    private fun onAction() {
+        binding.apply {
+            imgCopas.setOnClickListener {
+                val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("text", tvPhone.text)
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(this@DetailActivity, "nomor telepon disalin", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun getDataIntent() {

@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         getHospitalsFromFirebase()
 
         onAction()
+
     }
 
 
@@ -67,7 +68,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            adapter.onClickToPopUpImage { popUpImage(this@MainActivity, it) }
+            adapter.onClickToPopUpImage { popUpImage(this@MainActivity, it)}
+
 
             btnReload.setOnClickListener { getHospitalsFromFirebase() }
         }
@@ -78,9 +80,7 @@ class MainActivity : AppCompatActivity() {
 
             progressBar.visible()
 
-            viewModel.getHospitals(
-                this@MainActivity,
-            ) {
+            viewModel.getHospitals(this@MainActivity) {
                 val value = edtSearchMain.text.toString().trim()
 
                 adapter.hospitals = it
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                         showLoadFailed(true)
                     }
 
-                }, DELAY_CONNETING)
+                }, DELAY_CONNECTING)
 
         }
     }
@@ -141,6 +141,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val DELAY_CONNETING = 10000L
+        private const val DELAY_CONNECTING = 10000L
     }
 }

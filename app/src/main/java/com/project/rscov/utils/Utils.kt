@@ -2,6 +2,7 @@ package com.project.rscov.utils
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -61,19 +62,25 @@ fun ImageView.loadImage(url: String){
         .into(this)
 }
 
-fun popUpImage(context: Context, url: String){
+fun popUpImage(context: Context, url: String) {
     ImagePopup(context).apply {
         windowWidth = WindowManager.LayoutParams.MATCH_PARENT
         windowHeight = WindowManager.LayoutParams.WRAP_CONTENT
         minimumHeight = 200
         maxHeight = 600
-        backgroundColor = Color.WHITE
+        backgroundColor = Color.BLACK
         isHideCloseIcon = true
-        postInvalidateOnAnimation()
         initiatePopupWithGlide(url)
         viewPopup()
     }
 }
+
+
+fun getScreeOrientation(context: Context): Boolean =
+    when(context.resources.configuration.orientation){
+        Configuration.ORIENTATION_PORTRAIT -> true
+        else -> false
+    }
 
 fun View.gone(){
     this.visibility = View.GONE

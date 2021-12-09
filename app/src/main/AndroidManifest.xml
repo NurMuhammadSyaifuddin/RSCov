@@ -26,7 +26,8 @@
         <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:configChanges="orientation"/>
     </application>
 
 </manifest>

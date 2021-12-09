@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">RSCov</string>
     <string name="nama_rumah_sakit">NAMA RUMAH SAKIT</string>
-    <string name="address">Address</string>
-    <string name="region">Region</string>
-    <string name="Province">province</string>
-    <string name="Phone">phone</string>
+    <string name="address">Alamat</string>
+    <string name="region">Wilayah</string>
+    <string name="Province">Provinsi</string>
+    <string name="Phone">Telepon</string>
     <string name="rscov">RSCov</string>
     <string name="location">Semarang</string>
     <string name="error">Error</string>
     <string name="default_text">-</string>
-    <string name="search">Search</string>
+    <string name="search">Cari berdasarkan wilayah</string>
     <string name="failed_connect">Gagal memuat. Periksa koneksi internet Anda</string>
     <string name="reload">Muat ulang</string>
     <string name="no_data">Hasil pencarian \"%s\" tidak ditemukan</string>
