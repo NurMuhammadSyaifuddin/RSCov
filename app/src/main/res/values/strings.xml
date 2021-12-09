@@ -6,4 +6,14 @@
     <string name="Province">province</string>
     <string name="Phone">phone</string>
     <string name="rscov">RSCov</string>
+
+    <string name="title_about">About</string>
+    <string name="about">RSCov merupakan aplikasi yang menyediakan daftar rujukan rumah sakit Covid-19. Aplikasi ini memuat daftar nama rumah sakit, wilayah, provinsi, dan nomor telepon rumah sakit serta fitur search sehingga dapat memudahkan pengguna untuk mendapatkan informasi rumah sakit rujukan covid. </string>
+    <string name="title_library">Library and Resource</string>
+    <string name="library">API dst..</string>
+    <string name="title_developer">Developer</string>
+    <string name="developer1">Nur Muhammad Syaifuddin</string>
+    <string name="developer2">Viviola Prasetianing Putri</string>
+
+
 </resources>
