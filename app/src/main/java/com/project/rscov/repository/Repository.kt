@@ -10,14 +10,18 @@ import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.rscov.model.Hospital
+import com.project.rscov.utils.EspressoIdlingResource
 import com.project.rscov.utils.showErrorDialog
 
 object Repository {
 
     fun getHospitals(
         context: Context?,
-        setUpAdapter: ((MutableList<Hospital>) -> Unit)
+        setUpAdapter: ((MutableList<Hospital>) -> Unit),
+        showEmptyData: (() -> Unit)
     ): LiveData<ValueEventListener> {
+
+        EspressoIdlingResource.increment()
 
         val result = MediatorLiveData<ValueEventListener>()
 
@@ -33,6 +37,8 @@ object Repository {
                         setUpAdapter(hospitals)
                     }
 
+                }else{
+                    showEmptyData()
                 }
             }
 
@@ -45,8 +51,8 @@ object Repository {
             result.postValue(it)
         }
 
+        EspressoIdlingResource.decrement()
         return result
     }
-
 
 }

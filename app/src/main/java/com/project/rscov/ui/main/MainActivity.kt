@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            adapter.onClickToPopUpImage { popUpImage(this@MainActivity, it)}
+            adapter.onClickToPopUpImage { popUpImage(this@MainActivity, it) }
 
 
             btnReload.setOnClickListener { getHospitalsFromFirebase() }
@@ -79,8 +79,10 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
 
             progressBar.visible()
+            showLoadFailed(false)
+            showEmptyData(false)
 
-            viewModel.getHospitals(this@MainActivity) {
+            viewModel.getHospitals(this@MainActivity, {
                 val value = edtSearchMain.text.toString().trim()
 
                 adapter.hospitals = it
@@ -88,13 +90,13 @@ class MainActivity : AppCompatActivity() {
 
                 if (value.isNotBlank()) {
                     adapter.filter.filter(value)
+                    showTvNoData(value)
                 }
-
                 progressBar.gone()
-
+            }) {
+                showEmptyData(true)
             }.observe(this@MainActivity) {
                 hospitalsDatabase.addValueEventListener(it)
-                showLoadFailed(false)
             }
 
             Handler(Looper.getMainLooper())
@@ -140,7 +142,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showEmptyData(state: Boolean) {
+        binding.apply {
+            if (state) {
+                imgEmptyData.visible()
+                tvEmptyData.visible()
+                btnReload.visible()
+            } else {
+                imgEmptyData.gone()
+                tvEmptyData.gone()
+                btnReload.gone()
+            }
+        }
+    }
+
     companion object {
-        private const val DELAY_CONNECTING = 10000L
+        private const val DELAY_CONNECTING = 15000L
     }
 }

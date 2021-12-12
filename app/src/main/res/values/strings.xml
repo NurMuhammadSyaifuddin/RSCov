@@ -13,4 +13,5 @@
     <string name="failed_connect">Gagal memuat. Periksa koneksi internet Anda</string>
     <string name="reload">Muat ulang</string>
     <string name="no_data">Hasil pencarian \"%s\" tidak ditemukan</string>
+    <string name="empty_data">Tidak ada data yang dapat dimuat</string>
 </resources>

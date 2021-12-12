@@ -3,9 +3,6 @@ package com.project.rscov.utils
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -27,25 +24,6 @@ fun showErrorDialog(context: Context?, message: String){
         .setCancelable(true)
         .create()
         .show()
-}
-
-fun isNetworkAvailable(context: Context): Boolean{
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork) ?: return false
-        return when{
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            else -> false
-        }
-    }else{
-        if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnectedOrConnecting){
-            return true
-        }
-    }
-    return false
 }
 
 fun hideSoftKeyboard(context: Context, view: View) {

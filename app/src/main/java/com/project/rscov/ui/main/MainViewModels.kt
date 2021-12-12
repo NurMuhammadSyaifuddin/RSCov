@@ -11,7 +11,8 @@ class MainViewModels : ViewModel() {
 
     fun getHospitals(
         context: Context,
-        setUpAdapter: ((MutableList<Hospital>) -> Unit)
-    ): LiveData<ValueEventListener> = Repository.getHospitals(context, setUpAdapter)
+        setUpAdapter: ((MutableList<Hospital>) -> Unit),
+        showEmptyData: (() -> Unit)
+    ): LiveData<ValueEventListener> = Repository.getHospitals(context, setUpAdapter, showEmptyData)
 
 }
