@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.project.rscov.R
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
+import com.project.rscov.model.Hospital
 import com.project.rscov.ui.detail.DetailActivity
 import com.project.rscov.utils.*
 
@@ -36,10 +40,65 @@ class MainActivity : AppCompatActivity() {
         )[MainViewModels::class.java]
         hospitalsDatabase = FirebaseDatabase.getInstance().getReference("hospitals")
 
-        getHospitalsFromFirebase()
-
         onAction()
 
+        getDataFromFirebase()
+    }
+
+    private fun getDataFromFirebase() {
+        binding.apply {
+
+            progressBar.visible()
+            showLoadFailed(false)
+            showEmptyData(false)
+
+            hospitalsDatabase.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    EspressoIdlingResource.increment()
+
+                    if (snapshot.value != null) {
+
+                        val json = Gson().toJson(snapshot.value)
+                        val type = object : TypeToken<List<Hospital>>() {}.type
+                        val hospitals = Gson().fromJson<MutableList<Hospital>>(json, type)
+
+                        viewModel.setHospitals(hospitals)
+                        viewModel.getHospitals().observe(this@MainActivity){
+                            val value = edtSearchMain.text.toString().trim()
+
+                            adapter.hospitals = it
+                            rvHospitals.adapter = adapter
+
+                            if (value.isNotBlank()) {
+                                adapter.filter.filter(value)
+                                showTvNoData(value)
+                            }
+                            progressBar.gone()
+                        }
+
+                    }else{
+                        showEmptyData(true)
+                    }
+
+                    EspressoIdlingResource.decrement()
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("MainActivity", "onCancelled: ${error.message}")
+                    showErrorDialog(this@MainActivity, error.message)
+                }
+
+            })
+
+            Handler(Looper.getMainLooper())
+                .postDelayed({
+                    if (progressBar.isVisible) {
+                        showLoadFailed(true)
+                    }
+                }, DELAY_CONNECTING)
+
+        }
     }
 
 
@@ -71,43 +130,7 @@ class MainActivity : AppCompatActivity() {
             adapter.onClickToPopUpImage { popUpImage(this@MainActivity, it) }
 
 
-            btnReload.setOnClickListener { getHospitalsFromFirebase() }
-        }
-    }
-
-    private fun getHospitalsFromFirebase() {
-        binding.apply {
-
-            progressBar.visible()
-            showLoadFailed(false)
-            showEmptyData(false)
-
-            viewModel.getHospitals(this@MainActivity, {
-                val value = edtSearchMain.text.toString().trim()
-
-                adapter.hospitals = it
-                rvHospitals.adapter = adapter
-
-                if (value.isNotBlank()) {
-                    adapter.filter.filter(value)
-                    showTvNoData(value)
-                }
-                progressBar.gone()
-            }) {
-                showEmptyData(true)
-            }.observe(this@MainActivity) {
-                hospitalsDatabase.addValueEventListener(it)
-            }
-
-            Handler(Looper.getMainLooper())
-                .postDelayed({
-
-                    if (progressBar.isVisible) {
-                        showLoadFailed(true)
-                    }
-
-                }, DELAY_CONNECTING)
-
+            btnReload.setOnClickListener { getDataFromFirebase() }
         }
     }
 

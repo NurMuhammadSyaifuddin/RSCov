@@ -1,18 +1,18 @@
 package com.project.rscov.ui.main
 
-import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.ValueEventListener
 import com.project.rscov.model.Hospital
-import com.project.rscov.repository.Repository
 
 class MainViewModels : ViewModel() {
 
-    fun getHospitals(
-        context: Context,
-        setUpAdapter: ((MutableList<Hospital>) -> Unit),
-        showEmptyData: (() -> Unit)
-    ): LiveData<ValueEventListener> = Repository.getHospitals(context, setUpAdapter, showEmptyData)
+    private val hospitals = MutableLiveData<MutableList<Hospital>>()
+
+    fun setHospitals(data: MutableList<Hospital>?){
+        hospitals.postValue(data)
+    }
+
+    fun getHospitals(): LiveData<MutableList<Hospital>> = hospitals
 
 }
