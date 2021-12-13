@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -17,6 +19,7 @@ import com.project.rscov.R
 import com.project.rscov.adapter.MainAdapter
 import com.project.rscov.databinding.ActivityMainBinding
 import com.project.rscov.model.Hospital
+import com.project.rscov.ui.about.AboutActivity
 import com.project.rscov.ui.detail.DetailActivity
 import com.project.rscov.utils.*
 
@@ -178,6 +181,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when(item.itemId){
+            R.id.menu_about -> {
+                Intent(this, AboutActivity::class.java).also { startActivity(it) }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
     companion object {
         private const val DELAY_CONNECTING = 15000L

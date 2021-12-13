@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RSCov">
         <activity
+            android:name=".ui.about.AboutActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.RSCov.NoActionBar">
@@ -26,8 +29,8 @@
         <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"
-            android:configChanges="orientation"/>
+            android:configChanges="orientation"
+            android:exported="true" />
     </application>
 
 </manifest>

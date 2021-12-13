@@ -6,6 +6,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.project.rscov.R
 import com.project.rscov.databinding.ActivityDetailBinding
 import com.project.rscov.model.Hospital
 import com.project.rscov.utils.loadImage
@@ -19,6 +20,11 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.title_action_bar_detail)
+        }
 
         getDataIntent()
 
@@ -55,6 +61,11 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     companion object{
