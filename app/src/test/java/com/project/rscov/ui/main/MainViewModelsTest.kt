@@ -3,6 +3,7 @@ package com.project.rscov.ui.main
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.project.rscov.model.Hospital
+import com.project.rscov.ui.detail.DetailViewModel
 import com.project.rscov.utils.DataDummy
 import org.junit.Assert.*
 import org.junit.Before
@@ -18,11 +19,13 @@ class MainViewModelsTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: MainViewModels
+    private lateinit var mainViewModel: MainViewModels
+    private lateinit var detailViewModel: DetailViewModel
 
     @Before
     fun setUp(){
-        viewModel = Mockito.mock(MainViewModels::class.java)
+        mainViewModel = Mockito.mock(MainViewModels::class.java)
+        detailViewModel = Mockito.mock(DetailViewModel::class.java)
     }
 
     @Test
@@ -30,10 +33,22 @@ class MainViewModelsTest {
         val dataDummy = MutableLiveData<MutableList<Hospital>>()
         dataDummy.value = DataDummy.generateDataMovie().toMutableList()
 
-        `when`(viewModel.getHospitals()).thenReturn(dataDummy)
+        `when`(mainViewModel.getHospitals()).thenReturn(dataDummy)
 
-        val listHospitals = viewModel.getHospitals().value
+        val listHospitals = mainViewModel.getHospitals().value
         assertNotNull(listHospitals)
-        verify(viewModel).getHospitals()
+        verify(mainViewModel).getHospitals()
+    }
+
+    @Test
+    fun getDetailHospital(){
+        val dataDummy = MutableLiveData<Hospital>()
+        dataDummy.value = DataDummy.generateDataMovie().toMutableList()[0]
+
+        `when`(detailViewModel.getHospital()).thenReturn(dataDummy)
+
+        val hospital = detailViewModel.getHospital().value
+        assertNotNull(hospital)
+        verify(detailViewModel).getHospital()
     }
 }

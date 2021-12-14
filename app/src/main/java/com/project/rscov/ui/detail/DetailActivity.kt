@@ -6,6 +6,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.project.rscov.R
 import com.project.rscov.databinding.ActivityDetailBinding
 import com.project.rscov.model.Hospital
@@ -15,11 +16,15 @@ import com.project.rscov.utils.popUpImage
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // init
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -45,19 +50,25 @@ class DetailActivity : AppCompatActivity() {
     private fun getDataIntent() {
         binding.apply {
             intent?.let {
+
                 val hospital = it.extras?.getParcelable<Hospital>(EXTRA_DATA)
 
-                imgPictureHeader.loadImage(hospital?.imageUrl.toString())
-                tvHospitalName.text = hospital?.name
-                tvAddress.text = hospital?.address
-                tvRegion.text = hospital?.region
-                tvProvince.text = hospital?.province
-                tvPhone.text = hospital?.phone
+                viewModel.setHospital(hospital)
+                viewModel.getHospital().observe(this@DetailActivity) { data ->
 
-                imgPictureHeader.setOnClickListener {
-                    hospital?.imageUrl?.let { url ->
-                        popUpImage(this@DetailActivity, url)
+                    imgPictureHeader.loadImage(data?.imageUrl.toString())
+                    tvHospitalName.text = data?.name
+                    tvAddress.text = data?.address
+                    tvRegion.text = data?.region
+                    tvProvince.text = data?.province
+                    tvPhone.text = data?.phone
+
+                    imgPictureHeader.setOnClickListener {
+                        data?.imageUrl?.let { url ->
+                            popUpImage(this@DetailActivity, url)
+                        }
                     }
+
                 }
             }
         }

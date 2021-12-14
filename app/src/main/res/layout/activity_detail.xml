@@ -38,11 +38,11 @@
 
             <TextView
                 android:id="@+id/tv_hospital_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
                 android:text="@string/nama_rumah_sakit"
                 android:textColor="@color/black"
+                android:textAlignment="center"
                 android:textSize="@dimen/sp_15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,6 @@
                 android:id="@+id/title_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
                 android:layout_marginTop="@dimen/sp_70"
                 android:text="@string/address"
                 android:textColor="@color/black2"
@@ -61,97 +60,86 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_hospital_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_hospital_name" />
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/address"
                 android:textSize="@dimen/sp_14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/title_address" />
+                app:layout_constraintTop_toBottomOf="@id/title_address" />
 
             <TextView
                 android:id="@+id/title_region"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_16"
                 android:text="@string/region"
                 android:textColor="@color/black2"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_address" />
+                app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
             <TextView
                 android:id="@+id/tv_region"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/region"
                 android:textSize="@dimen/sp_14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/title_region" />
+                app:layout_constraintTop_toBottomOf="@id/title_region" />
 
             <TextView
                 android:id="@+id/title_province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_35"
                 android:text="@string/Province"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/black2"
                 android:textStyle="bold"
+                android:layout_marginTop="@dimen/dp_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_region" />
+                app:layout_constraintTop_toBottomOf="@id/tv_region" />
 
             <TextView
                 android:id="@+id/tv_province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/Province"
                 android:textSize="@dimen/sp_14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/title_province" />
+                app:layout_constraintTop_toBottomOf="@id/title_province" />
 
             <TextView
                 android:id="@+id/title_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_35"
                 android:text="@string/Phone"
                 android:textSize="@dimen/sp_14"
+                android:layout_marginTop="@dimen/dp_16"
                 android:textColor="@color/black2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_province" />
+                app:layout_constraintTop_toBottomOf="@id/tv_province" />
 
             <TextView
                 android:id="@+id/tv_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/Phone"
                 android:textSize="@dimen/sp_14"
                 android:textIsSelectable="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/title_phone" />
+                app:layout_constraintTop_toBottomOf="@id/title_phone" />
 
             <ImageView
                 android:id="@+id/img_copas"

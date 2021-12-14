@@ -73,8 +73,7 @@ class MainActivity : AppCompatActivity() {
                             rvHospitals.adapter = adapter
 
                             if (value.isNotBlank()) {
-                                adapter.filter.filter(value)
-                                showTvNoData(value)
+                                getFilter(value)
                             }
                             progressBar.gone()
                         }
@@ -104,19 +103,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getFilter(value: String) {
+        binding.apply {
+            adapter.filter.filter(value)
+            rvHospitals.scrollToPosition(0)
+            showTvNoData(value)
+        }
+    }
+
 
     private fun onAction() {
         binding.apply {
 
             edtSearchMain.addTextChangedListener {
-                adapter.filter.filter(it.toString().trim())
-                showTvNoData(it.toString())
+                getFilter(it.toString().trim())
             }
 
             edtSearchMain.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    adapter.filter.filter(edtSearchMain.text)
-                    showTvNoData(edtSearchMain.text.toString().trim())
+                    getFilter(edtSearchMain.text.toString().trim())
                     hideSoftKeyboard(this@MainActivity, binding.root)
                     return@setOnEditorActionListener true
                 }
@@ -141,6 +146,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             if (state) {
                 rvHospitals.gone()
+                progressBar.gone()
                 imgFailed.visible()
                 tvFailed.visible()
                 btnReload.visible()
