@@ -3,7 +3,6 @@ package com.project.rscov.ui.main
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.project.rscov.model.Hospital
-import com.project.rscov.ui.detail.DetailViewModel
 import com.project.rscov.utils.DataDummy
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,12 +19,10 @@ class MainViewModelsTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var mainViewModel: MainViewModels
-    private lateinit var detailViewModel: DetailViewModel
 
     @Before
     fun setUp(){
         mainViewModel = Mockito.mock(MainViewModels::class.java)
-        detailViewModel = Mockito.mock(DetailViewModel::class.java)
     }
 
     @Test
@@ -40,15 +37,4 @@ class MainViewModelsTest {
         verify(mainViewModel).getHospitals()
     }
 
-    @Test
-    fun getDetailHospital(){
-        val dataDummy = MutableLiveData<Hospital>()
-        dataDummy.value = DataDummy.generateDataMovie().toMutableList()[0]
-
-        `when`(detailViewModel.getHospital()).thenReturn(dataDummy)
-
-        val hospital = detailViewModel.getHospital().value
-        assertNotNull(hospital)
-        verify(detailViewModel).getHospital()
-    }
 }

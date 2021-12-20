@@ -57,6 +57,7 @@ class DetailActivity : AppCompatActivity() {
                 viewModel.getHospital().observe(this@DetailActivity) { data ->
 
                     imgPictureHeader.loadImage(data?.imageUrl.toString())
+                    imgPictureHeader.tag = data?.imageUrl.toString()
                     tvHospitalName.text = data?.name
                     tvAddress.text = data?.address
                     tvRegion.text = data?.region

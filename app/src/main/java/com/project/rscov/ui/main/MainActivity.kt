@@ -52,8 +52,6 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
 
             progressBar.visible()
-            showLoadFailed(false)
-            showEmptyData(false)
 
             hospitalsDatabase.addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -76,6 +74,8 @@ class MainActivity : AppCompatActivity() {
                                 getFilter(value)
                             }
                             progressBar.gone()
+                            showLoadFailed(false)
+                            showEmptyData(false)
                         }
 
                     }else{
@@ -150,11 +150,13 @@ class MainActivity : AppCompatActivity() {
                 imgFailed.visible()
                 tvFailed.visible()
                 btnReload.visible()
+                edtSearchMain.disabled()
             } else {
                 rvHospitals.visible()
                 imgFailed.gone()
                 tvFailed.gone()
                 btnReload.gone()
+                edtSearchMain.enabled()
             }
         }
     }
@@ -180,10 +182,12 @@ class MainActivity : AppCompatActivity() {
                 imgEmptyData.visible()
                 tvEmptyData.visible()
                 btnReload.visible()
+                edtSearchMain.disabled()
             } else {
                 imgEmptyData.gone()
                 tvEmptyData.gone()
                 btnReload.gone()
+                edtSearchMain.enabled()
             }
         }
     }
