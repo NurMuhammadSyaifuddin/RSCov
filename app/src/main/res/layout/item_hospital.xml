@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginHorizontal="@dimen/dp_12"
+    android:layout_marginVertical="@dimen/dp_8">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img_hospital"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
+        android:elevation="@dimen/dp_3"
+        android:scaleType="fitXY"
+        android:src="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/dp_16"
+        app:riv_corner_radius="@dimen/dp_20" />
+
+    <TextView
+        android:id="@+id/tv_hospital_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_48"
+        android:maxHeight="@dimen/dp_48"
+        android:maxLines="2"
+        android:textColor="@color/black2"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:layout_marginHorizontal="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_hospital"
+        app:layout_constraintTop_toTopOf="@id/img_hospital"
+        app:layout_constraintBottom_toTopOf="@id/tv_region"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Nama Rumah Sakit" />
+
+    <TextView
+        android:id="@+id/tv_region"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_36"
+        android:maxHeight="@dimen/dp_36"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintTop_toBottomOf="@id/tv_hospital_name"
+        app:layout_constraintEnd_toEndOf="@+id/tv_telepon"
+        app:layout_constraintStart_toStartOf="@+id/tv_telepon"
+        app:layout_constraintBottom_toTopOf="@+id/tv_telepon"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Region" />
+
+    <TextView
+        android:id="@+id/tv_telepon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/sp_15"
+        android:layout_marginHorizontal="@dimen/dp_8"
+        app:layout_constraintTop_toBottomOf="@id/tv_region"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_hospital"
+        app:layout_constraintBottom_toBottomOf="@+id/img_hospital"
+        tools:text="Telp" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        app:cardBackgroundColor="@color/grey"
+        app:cardCornerRadius="@dimen/dp_20"
+        app:cardElevation="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:foreground="?android:attr/selectableItemBackground"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

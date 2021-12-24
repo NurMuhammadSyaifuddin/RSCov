@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">RSCov</string>
+    <string name="nama_rumah_sakit">NAMA RUMAH SAKIT</string>
+    <string name="address">Alamat</string>
+    <string name="region">Wilayah</string>
+    <string name="Province">Provinsi</string>
+    <string name="Phone">Telepon</string>
+    <string name="rscov">RSCov</string>
+    <string name="location">Semarang</string>
+    <string name="error">Error</string>
+    <string name="default_text">-</string>
+    <string name="search">Cari berdasarkan wilayah</string>
+    <string name="failed_connect">Gagal memuat. Periksa koneksi internet Anda</string>
+    <string name="reload">Muat ulang</string>
+    <string name="no_data">Hasil pencarian \"%s\" tidak ditemukan</string>
+    <string name="empty_data">Tidak ada data yang dapat dimuat</string>
+    <string name="about">RSCov merupakan aplikasi yang menyediakan daftar rumah sakit rujukan Covid-19 di Indonesia. Aplikasi ini diharapkan membantu pasien dengan gejala ataupun yang sudah terindikasi covid-19 menemukan rumah sakit rujukan covid-19.\n\nSeringkali rumah sakit menolak pasien dengan gejala covid-19 karena bukan termasuk rumah sakit rujukan covid-19. Akhirnya banyak pasien yang meninggal dunia karena dilempar antar rumah sakit.\n\nDengan adanya aplikasi ini, maka akan memudahkan pasien dengan gejala covid-19 untuk menemukan rumah sakit rujukan covid-19 secara cepat dan tentunya dapat meminimalisir terjadinya kasus serupa.</string>
+    <string name="_about">Tentang kami</string>
+    <string name="title_action_bar_detail">Detail Rumah Sakit</string>
+    <string name="title_action_bar_about">Tentang Kami</string>
 </resources>
